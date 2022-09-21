@@ -139,12 +139,18 @@ cp a,$21
 jr z,emz80onr2k_opc_xxyy_2
 cp a,$22
 jr z,emz80onr2k_opc_xxyy_2
+cp a,$26
+jr z,emz80onr2k_opc_xxyy_1
 cp a,$2a
 jr z,emz80onr2k_opc_xxyy_2
+cp a,$2e
+jr z,emz80onr2k_opc_xxyy_1
 cp a,$34
 jr z,emz80onr2k_opc_xxyy_1
 cp a,$35
 jr z,emz80onr2k_opc_xxyy_1
+cp a,$36
+jr z,emz80onr2k_opc_xxyy_2
 cp a,$65
 jr z,emz80onr2k_opc_xxyy_2
 cp a,$6d
@@ -162,14 +168,6 @@ ld a,(hl)
 ld (codestpy0+2),a
 jp codestpx0
 emz80onr2k_opc_xxyy_2:
-inc hl
-ld a,(hl)
-ld (codestpy0+2),a
-inc hl
-ld a,(hl)
-ld (codestpy0+3),a
-jp codestpx0
-
 emz80onr2k_opc_xxyy_cb:
 inc hl
 ld a,(hl)
