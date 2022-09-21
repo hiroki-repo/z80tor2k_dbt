@@ -1,6 +1,9 @@
 org $fc00
 emz80onr2k:
 ld a,0
+ld (codestpy0-1),a
+emz80onr2k_prefixed_rest:
+ld a,0
 ld (codestpy0+0),a
 ld (codestpy0+1),a
 ld (codestpy0+2),a
@@ -21,6 +24,10 @@ cp a,$ed
 jp z,emz80onr2k_opc_ed
 cp a,$76
 jp z,emz80onr2k_opc_hlt
+cp a,$d3
+jp z,emz80onr2k_opc_ioi
+cp a,$db
+jp z,emz80onr2k_opc_ioe
 
 rra
 rra
@@ -35,6 +42,16 @@ cp a,3
 jp z,emz80onr2k_opc_c0_ff
 
 jp codestpx0
+emz80onr2k_opc_ioi:
+inc hl
+ld a,$d3
+ld (codestpy0-1),a
+jp emz80onr2k_prefixed_rest
+emz80onr2k_opc_ioe:
+inc hl
+ld a,$db
+ld (codestpy0-1),a
+jp emz80onr2k_prefixed_rest
 
 emz80onr2k_opc_e9:
 ld a,22
@@ -382,6 +399,9 @@ ld bc,(context+2)
 ld de,(context+4)
 ld hl,(context+6)
 ld sp,(context+8)
+
+nop
+
 codestpy0:
 
 nop
