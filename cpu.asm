@@ -180,10 +180,10 @@ jp codestpx0
 emz80onr2k_opc_xxyy_lp:
 ld de,codestpy0+2
 emz80onr2k_opc_xxyy_lp_2:
+inc hl
 ld a,(hl)
 ld (de),a
 inc de
-inc hl
 djnz emz80onr2k_opc_xxyy_lp_2
 jp codestpx0
 emz80onr2k_opc_xxyy_oplongsx_1:
@@ -328,13 +328,12 @@ cp a,$22
 jp z,emz80onr2k_opc_00_3f_oplongsx_2
 jp codestpx0
 emz80onr2k_opc_00_3f_lp:
-inc hl
 ld de,codestpy0+1
 emz80onr2k_opc_00_3f_lp_2:
+inc hl
 ld a,(hl)
 ld (de),a
 inc de
-inc hl
 djnz emz80onr2k_opc_00_3f_lp_2
 jp codestpx0
 emz80onr2k_opc_00_3f_oplongsx_1:
