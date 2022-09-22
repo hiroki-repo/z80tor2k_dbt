@@ -319,12 +319,17 @@ and a,7
 cp a,0
 jp z,emz80onr2k_opc_jrtranslatex
 cp a,1
-jp z,emz80onr2k_opc_00_3f_oplongsx_2
+jp z,emz80onr2k_opc_00_3f_oplongsx_chk2
 cp a,6
 jp z,emz80onr2k_opc_00_3f_oplongsx_1
 ld a,(hl)
 and a,27
 cp a,$22
+jp z,emz80onr2k_opc_00_3f_oplongsx_2
+jp codestpx0
+emz80onr2k_opc_00_3f_oplongsx_chk2:
+ld a,(hl)
+and a,8
 jp z,emz80onr2k_opc_00_3f_oplongsx_2
 jp codestpx0
 emz80onr2k_opc_00_3f_lp:
