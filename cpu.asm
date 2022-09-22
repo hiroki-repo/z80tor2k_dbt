@@ -10,6 +10,8 @@ ld (codestpy0+2),a
 ld (codestpy0+3),a
 ld (codestpy0+4),a
 ld (codestpy0+5),a
+ld (codestpy0+6),a
+ld (codestpy0+7),a
 ld a,(hl)
 ld (codestpy0),a
 cp a,$cb
@@ -108,7 +110,7 @@ ld a,$c3
 ld (codestpy0),a
 ld de,jp4hlpcreg
 ld (codestpy0+1),de
-ld (codestpy0+3),ix
+ld (codestpy0+6),ix
 jp codestpx0
 
 emz80onr2k_opc_fd:
@@ -123,7 +125,7 @@ ld a,$c3
 ld (codestpy0),a
 ld de,jp4hlpcreg
 ld (codestpy0+1),de
-ld (codestpy0+3),iy
+ld (codestpy0+6),iy
 jp codestpx0
 
 
@@ -234,6 +236,10 @@ or a,b
 ld (codestpy0),a
 ld de,ret4hlpcreg
 ld (codestpy0+1),de
+ld a,$c3
+ld (codestpy0+3),a
+ld de,codestpx1
+ld (codestpy0+4),de
 jp codestpx0
 
 emz80onr2k_opc_c0_ff_gen_jp_cond:
@@ -244,12 +250,16 @@ or a,b
 ld (codestpy0),a
 ld de,jp4hlpcreg
 ld (codestpy0+1),de
-inc hl
-ld a,(hl)
+ld a,$c3
 ld (codestpy0+3),a
+ld de,codestpx1
+ld (codestpy0+4),de
 inc hl
 ld a,(hl)
-ld (codestpy0+4),a
+ld (codestpy0+6),a
+inc hl
+ld a,(hl)
+ld (codestpy0+7),a
 jp codestpx0
 
 emz80onr2k_opc_c0_ff_gen_call_cond:
@@ -260,12 +270,16 @@ or a,b
 ld (codestpy0),a
 ld de,call4hlpcreg
 ld (codestpy0+1),de
-inc hl
-ld a,(hl)
+ld a,$c3
 ld (codestpy0+3),a
+ld de,codestpx1
+ld (codestpy0+4),de
 inc hl
 ld a,(hl)
-ld (codestpy0+4),a
+ld (codestpy0+6),a
+inc hl
+ld a,(hl)
+ld (codestpy0+7),a
 jp codestpx0
 
 emz80onr2k_opc_c0_ff_gen_rst:
@@ -275,9 +289,9 @@ ld de,call4hlpcreg
 ld (codestpy0+1),de
 ld a,(hl)
 and a,$38
-ld (codestpy0+3),a
+ld (codestpy0+6),a
 ld a,0
-ld (codestpy0+4),a
+ld (codestpy0+7),a
 jp codestpx0
 
 
@@ -295,10 +309,10 @@ ld de,jp4hlpcreg
 ld (codestpy0+1),de
 inc hl
 ld a,(hl)
-ld (codestpy0+3),a
+ld (codestpy0+6),a
 inc hl
 ld a,(hl)
-ld (codestpy0+4),a
+ld (codestpy0+7),a
 jp codestpx0
 
 emz80onr2k_opc_c0_ff_gen_call:
@@ -308,10 +322,10 @@ ld de,call4hlpcreg
 ld (codestpy0+1),de
 inc hl
 ld a,(hl)
-ld (codestpy0+3),a
+ld (codestpy0+6),a
 inc hl
 ld a,(hl)
-ld (codestpy0+4),a
+ld (codestpy0+7),a
 jp codestpx0
 
 
@@ -375,15 +389,19 @@ ld de,jr4hlpcreg
 ld (codestpy0+1),de
 inc hl
 ld a,(hl)
-ld (codestpy0+3),a
+ld (codestpy0+6),a
 jp codestpx0
 emz80onr2k_opc_jrtranslatex_gencond_00_djnz:
+ld a,$c3
 ld (codestpy0),a
 ld de,jr4hlpcreg_djnz
 ld (codestpy0+1),de
+ld (codestpy0+3),a
+ld de,codestpx1
+ld (codestpy0+4),de
 inc hl
 ld a,(hl)
-ld (codestpy0+3),a
+ld (codestpy0+6),a
 jp codestpx0
 
 emz80onr2k_opc_jrtranslatex_gencond_20:
@@ -394,9 +412,13 @@ emz80onr2k_opc_jrtranslatex_gencond_common:
 ld (codestpy0),a
 ld de,jr4hlpcreg
 ld (codestpy0+1),de
+ld a,$c3
+ld (codestpy0+3),a
+ld de,codestpx1
+ld (codestpy0+4),de
 inc hl
 ld a,(hl)
-ld (codestpy0+3),a
+ld (codestpy0+6),a
 jp codestpx0
 
 codestpx0:
@@ -416,6 +438,8 @@ nop
 
 codestpy0:
 
+nop
+nop
 nop
 nop
 nop
@@ -448,17 +472,17 @@ ld sp,(syscontext)
 jp emz80onr2k
 jr4hlpcreg:
 ld d,0
-ld a,(codestpy0+3)
+ld a,(codestpy0+6)
 and a,128
 jr nz,jr4hlpcreg_sub
-ld a,(codestpy0+3)
+ld a,(codestpy0+6)
 ld e,a
 ld hl,(context+10)
 add hl,de
 ld (context+10),hl
 jp emz80onr2k
 jr4hlpcreg_sub:
-ld a,(codestpy0+3)
+ld a,(codestpy0+6)
 sub 255
 dec a
 xor 255
@@ -480,7 +504,7 @@ ld hl,(context+10)
 push hl
 ld (context+8),sp
 jp4hlpcreg:
-ld hl,(codestpy0+3)
+ld hl,(codestpy0+6)
 ld (context+10),hl
 ld sp,(syscontext)
 jp emz80onr2k
