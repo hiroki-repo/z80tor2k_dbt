@@ -213,10 +213,19 @@ cp a,2
 jp z,emz80onr2k_opc_c0_ff_gen_jp_cond
 cp a,4
 jp z,emz80onr2k_opc_c0_ff_gen_call_cond
+cp a,6
+jp z,emz80onr2k_opc_c0_ff_gen_arith_args
 cp a,7
 jp z,emz80onr2k_opc_c0_ff_gen_rst
 
 jp codestpx0
+
+emz80onr2k_opc_c0_ff_gen_arith_args:
+inc hl
+ld a,(hl)
+ld (codestpy0+1),a
+jp codestpx0
+
 emz80onr2k_opc_c0_ff_gen_ret_cond:
 ld b,$c2
 ld a,(hl)
