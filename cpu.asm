@@ -54,7 +54,7 @@ ld (codestpy0-1),a
 jp emz80onr2k_prefixed_rest
 
 emz80onr2k_opc_e9:
-ld a,22
+ld a,$22
 ld (codestpy0),a
 ld de,context+10
 ld (codestpy0+1),de
