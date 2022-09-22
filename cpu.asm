@@ -328,6 +328,7 @@ cp a,$22
 jp z,emz80onr2k_opc_00_3f_oplongsx_2
 jp codestpx0
 emz80onr2k_opc_00_3f_lp:
+inc hl
 ld de,codestpy0+1
 emz80onr2k_opc_00_3f_lp_2:
 ld a,(hl)
