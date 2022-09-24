@@ -4,9 +4,9 @@ is a module to run CP/M on Rabbit2000!
 # How do we use it?
 Example 1 run 62K CP/M from an awesome code!
 
-;---begin the some initial codes---
-
 org $100
+
+;---begin the some initial codes---
 
 emz80onr2k equ $FC00
 
