@@ -583,7 +583,7 @@ cpmsec:	dw 0
 cpmdma:	dw 0
 cpmdrive:	db 0
 	
-ds $fc00-$
+ds $a00-$
 emz80onr2k:
 ld a,0
 ld (codestpy0-1),a
